@@ -60,7 +60,7 @@ my-rest-api/
 - Cuenta de AWS configurada
 - Serverless Framework instalado globalmente  
   ```bash
-  npm install -g serverless
+  npm install
   ```
 
 ---
