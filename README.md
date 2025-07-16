@@ -70,11 +70,18 @@ my-rest-api/
 Ejemplo de `.env`:
 
 ```env
-JWT_SECRET=supersecreto
-MYSQL_HOST=tu-host
-MYSQL_USER=usuario
-MYSQL_PASSWORD=clave
-MYSQL_DATABASE=nombreDB
+
+
+MYSQL_HOST=XXXXXXXXXXXX
+MYSQL_PORT=3306
+MYSQL_USER=admin
+MYSQL_PASSWORD=XXXXXXXXXXXXXXX
+MYSQL_DATABASE=db_backend_challenge
+
+JWT_SECRET=backendchallengebackendchallenge
+JWT_EXPIRES_IN=1h
+
+MEMCACHED_URL=memcached-api-cache.xxxx.cfg.use1.cache.amazonaws.com:11211
 
 ```
 
@@ -113,7 +120,7 @@ serverless deploy --stage dev
 
 # challenge
 
-- **Puntos mínimos-obligatorios del MVP**
+**Puntos mínimos-obligatorios del MVP**
 - Pruebas unitarias y de integración usando Jest o similar. ✅
 - Uso de TypeScript para tipado estático y mayor seguridad en el código. ✅
 - Un GET que combine y muestre datos de las dos APIsexternas. ✅
@@ -124,7 +131,7 @@ serverless deploy --stage dev
 - Almacenamiento en DynamoDBo MySQL. ✅
 - Uso de AWS Lambday API Gateway. ✅
 
-- **Puntos Bonus:**
+**Puntos Bonus:**
 - Autenticaciónpara proteger los endpointsPOST y GET /historial (puede ser con JWTo AWS Cognito).. ✅
 - Implementar un sistema de rate-limitingpara evitar abuso de los endpointsque consumen las APIsexternas. ✅
 
