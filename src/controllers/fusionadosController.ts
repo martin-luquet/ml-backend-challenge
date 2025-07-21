@@ -9,6 +9,9 @@ import logger from '../utils/logger';
 /**
  * Controlador para manejar la ruta /fusionados/:id
  * Permite obtener información de un personaje fusionado por su ID
+ * obtenerlo desde la caché si ya fue consultado anteriormente.
+ * Si no está en caché, realiza las consultas a la API de Star Wars y Open Meteo,
+ * guarda el resultado en caché y en la base de datos.
  */
 export const fusionadosController = async (req: Request, res: Response) => {
   try {
