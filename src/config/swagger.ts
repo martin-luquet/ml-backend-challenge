@@ -17,11 +17,12 @@ const options: swaggerJsdoc.Options = {
       }
     ]
   },
-  apis: ['src/routes/index.ts', 'src/controllers/*.ts']
+  apis: ['src/routes/*.ts', 'src/controllers/*.ts']
 };
 const swaggerSpec = swaggerJsdoc(options);
 
 export function swaggerDocs(app: Express): void {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  //app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   console.log(`Swagger docs disponibles en https://hur2osjc10.execute-api.us-east-1.amazonaws.com/dev/api-docs`);
+  app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec, {}), swaggerUi.setup(swaggerSpec));
 }

@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 
-//import memcachedClient from '../config/memcached';
+import memcachedClient from '../config/memcached';
 import { guardarFusionado } from '../services/fusionadosService';
 import { planetCoordinateMap } from '../utils/planetMap';
+import logger from '../utils/logger';
 
 /**
  * Controlador para manejar la ruta /fusionados/:id
@@ -17,19 +18,16 @@ export const fusionadosController = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'ID inválido. Debe ser un número mayor que 0.' });
     }
 
-    /*
     const cacheKey = `merged:${id}`;
 
     const { value: cached } = await memcachedClient.get(cacheKey);
     if (cached) {
       const parsed = JSON.parse(cached.toString());
-      console.log('Resultado obtenido desde cache');
+      logger.info('Resultado obtenido desde cache');
       return res.status(200).json(parsed);
     }
-    */
 
-    // 2. Llamadas a APIs externas
-    const { data: peopleData } = await axios.get(`https://swapi.info/api/people/${id}/`);
+    const { data: peopleData } = await axios.get(`${process.env.SWAPI_BASE_URL}/people/${id}/`);
     const { data: planetData } = await axios.get(peopleData.homeworld);
 
     const planetName = planetData.name;
@@ -41,9 +39,8 @@ export const fusionadosController = async (req: Request, res: Response) => {
       condition_code: 'No disponible'
     };
 
-    // 3. Si el planeta tiene coordenadas, consultar clima
     if (location) {
-      const { data: weatherData } = await axios.get('https://api.open-meteo.com/v1/forecast', {
+      const { data: weatherData } = await axios.get(`${process.env.OPENMETEO_BASE_URL}`, {
         params: {
           latitude: location.lat,
           longitude: location.lon,
@@ -58,7 +55,6 @@ export const fusionadosController = async (req: Request, res: Response) => {
       };
     }
 
-    // 4. Preparar resultado
     const result = {
       character: peopleData.name,
       height: peopleData.height,
@@ -69,9 +65,8 @@ export const fusionadosController = async (req: Request, res: Response) => {
       weather
     };
 
-    //await memcachedClient.set(cacheKey, JSON.stringify(result), { expires: 1800 });
+    await memcachedClient.set(cacheKey, JSON.stringify(result), { expires: 1800 });
 
-    // 6. Guardar en base de datos
     await guardarFusionado({
       characterName: peopleData.name,
       height: peopleData.height,
@@ -84,12 +79,11 @@ export const fusionadosController = async (req: Request, res: Response) => {
       conditionCode: weather.condition_code
     });
 
-    console.log('Resultado guardado en base de datos');
+    logger.info('Resultado guardado en base de datos');
     return res.status(200).json(result);
 
   } catch (error: any) {
-    console.error('Error en fusionadosController:', error);
+    logger.error({ err: error }, 'Error en fusionadosController');
     return res.status(500).json({ error: 'Ocurrió un error al obtener datos.' });
   }
 };
-

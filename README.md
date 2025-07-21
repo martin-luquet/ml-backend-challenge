@@ -12,8 +12,22 @@
 - **JWT** (para autenticación)
 - **Jest** (para pruebas unitarias)
 - **dotenv** (manejo de variables de entorno)
-
 ---
+
+## 🚀 Características
+
+- Desarrollo en **TypeScript**
+- Framework **Express**
+- Autenticación con **JWT**
+- Cifrado de contraseñas con **bcryptjs**
+- Cache con **Memcached** (vía `memjs`)
+- Documentación interactiva con **Swagger UI**
+- Pruebas unitarias y de integración con **Jest**
+- Deploy automático con **Serverless Framework**
+- Logs estructurados con **Pino**
+- Soporte para múltiples entornos usando **dotenv**
+
+
 
 ## 📁 Estructura del proyecto
 
@@ -49,21 +63,29 @@ my-rest-api/
 | `npm run build`  | Compila el código TypeScript a JavaScript  |
 | `npm run test`   | Ejecuta las pruebas unitarias con Jest      |
 | `npm run test:unit`   | Ejecuta las pruebas unitarias con Jest      |
-| `npm run test:integration`   | Ejecuta las pruebas unitarias con Jest      |
-| `npm run deploy` | Despliega la API en AWS Lambda              |
+| `npm run test:integration`   | Ejecuta las pruebas de integración con Jest      |
+| `npm run deploy:dev` | Despliega la API en AWS Lambda  en desarrollo            |
+| `npm run deploy` | Despliega la API en AWS Lambda  en producción            |
 
----
+
 
 ## 🧰 Requisitos
 
 - Node.js >= 20.x
-- Cuenta de AWS configurada
-- Serverless Framework instalado globalmente  
+- NPM o Yarn
+- AWS CLI configurado
+- Serverless Framework instalado globalmente:
   ```bash
-  npm install
+  npm install -g serverless
   ```
 
----
+## Clona el repositorio
+git clone https://github.com/tuusuario/ml-backend-challenge.git
+cd ml-backend-challenge
+
+## Instala dependencias
+npm install
+
 
 ## 🔐 Variables de entorno (`.env`)
 
@@ -71,18 +93,21 @@ Ejemplo de `.env`:
 
 ```env
 
-
 MYSQL_HOST=XXXXXXXXXXXX
 MYSQL_PORT=3306
 MYSQL_USER=admin
 MYSQL_PASSWORD=XXXXXXXXXXXXXXX
 MYSQL_DATABASE=db_backend_challenge
 
-JWT_SECRET=backendchallengebackendchallenge
+JWT_SECRET=backendchallenge
 JWT_EXPIRES_IN=1h
 
-MEMCACHED_URL=memcached-api-cache.xxxx.cfg.use1.cache.amazonaws.com:11211
+MEMCACHED_URL=memcached-challenge.vvassdd.cfg.use1.cache.amazonaws.com:11211
 
+LOG_LEVEL=debug
+
+SWAPI_BASE_URL=https://swapi.info/api
+OPENMETEO_BASE_URL=https://api.open-meteo.com/v1/forecast
 ```
 
 ---
@@ -104,7 +129,7 @@ npm run test:integration
 Asegúrate de tener tu CLI de AWS configurado con `aws configure`, luego:
 
 ```bash
-npm run deploy
+npm run deploy:dev
 serverless deploy --stage dev
 ```
 
@@ -118,7 +143,7 @@ serverless deploy --stage dev
 
 ---
 
-# challenge
+# Challenge
 
 **Puntos mínimos-obligatorios del MVP**
 - Pruebas unitarias y de integración usando Jest o similar. ✅
@@ -126,15 +151,15 @@ serverless deploy --stage dev
 - Un GET que combine y muestre datos de las dos APIsexternas. ✅
 - POST para almacenar recursos propios en la base de datos. ✅
 - Un GET para consultar el historial de datos almacenados. ✅
-- Cacheo de resultadospara evitar múltiples llamadas a las APIsdentro de un intervalo de 30 minutos. ❌
-  (Falta configurar NAT Gateway de lambda para consumir APIS EXTERNAS y el servicio Elasticache Memcached)
+- Cacheo de resultadospara evitar múltiples llamadas a las APIsdentro de un intervalo de 30 minutos. ✅
 - Despliegue en AWS usando ServerlessFramework o CDK. ✅
 - Almacenamiento en DynamoDBo MySQL. ✅
 - Uso de AWS Lambday API Gateway. ✅
 
 **Puntos Bonus:**
-- Autenticaciónpara proteger los endpointsPOST y GET /historial (puede ser con JWTo AWS Cognito).. ✅
+- Autenticación para proteger los endpoints POST y GET /historial (puede ser con JWTo AWS Cognito).. ✅
 - Implementar un sistema de rate-limiting para evitar abuso de los endpoints que consumen las APIs externas (configuración en API Gateway). ✅
+- Uso de logging avanzado con AWS CloudWatch para rastrear errores y rendimiento. ✅
 
 
 ## 🤝 Contribuciones
