@@ -1,7 +1,9 @@
-import { BaseModel }  from "./base";
 import { WeatherModel } from "./weather";
 
-export interface Fusionado extends BaseModel {
+/**
+ * Interfaz que representa un personaje fusionado con información de su planeta de origen y el clima actual.
+ */
+export interface Fusionado {
     characterName: string;
     height: string;
     mass: string;

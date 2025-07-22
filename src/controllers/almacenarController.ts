@@ -27,7 +27,8 @@ export const almacenarController = async (req: Request, res: Response) => {
     /**
      * Intenta crear el usuario utilizando el servicio de almacenamiento.
      */
-    await crearUsuario(username, password);
+    const user = { username, password };
+    await crearUsuario(user);
     logger.info({ username }, 'Usuario creado exitosamente');
     return res.status(200).json({ message: 'Usuario creado exitosamente' });
   } catch (error: any) {

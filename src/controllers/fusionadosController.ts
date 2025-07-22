@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 
 import memcachedClient from '../config/memcached';
+import logger from '../utils/logger';
+
 import { guardarFusionado } from '../services/fusionadosService';
 import { planetCoordinateMap } from '../utils/planetMap';
-import logger from '../utils/logger';
+
 
 /**
  * Controlador para manejar la ruta /fusionados/:id
@@ -59,7 +61,6 @@ export const fusionadosController = async (req: Request, res: Response) => {
     let weather = {
       temperature: 'No disponible',
       windspeed: 'No disponible',
-      condition_code: 'No disponible'
     };
 
 
@@ -83,8 +84,7 @@ export const fusionadosController = async (req: Request, res: Response) => {
        */
       weather = {
         temperature: `${weatherData.current_weather.temperature} °C`,
-        windspeed: `${weatherData.current_weather.windspeed} km/h`,
-        condition_code: weatherData.current_weather.weathercode
+        windspeed: `${weatherData.current_weather.windspeed} km/h`
       };
     }
 
@@ -120,9 +120,7 @@ export const fusionadosController = async (req: Request, res: Response) => {
       homeworld: planetName,
       climate: planetData.climate,
       terrain: planetData.terrain,
-      temperature: weather.temperature,
-      windspeed: weather.windspeed,
-      conditionCode: weather.condition_code
+      weather
     });
 
     logger.info('Resultado guardado en base de datos');

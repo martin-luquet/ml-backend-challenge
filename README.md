@@ -148,16 +148,16 @@ serverless deploy --stage dev
 **Puntos mínimos-obligatorios del MVP**
 - Pruebas unitarias y de integración usando Jest o similar. ✅
 - Uso de TypeScript para tipado estático y mayor seguridad en el código. ✅
-- Un GET que combine y muestre datos de las dos APIsexternas. ✅
+- Un GET que combine y muestre datos de las dos APIs externas. ✅
 - POST para almacenar recursos propios en la base de datos. ✅
 - Un GET para consultar el historial de datos almacenados. ✅
-- Cacheo de resultadospara evitar múltiples llamadas a las APIsdentro de un intervalo de 30 minutos. ✅
-- Despliegue en AWS usando ServerlessFramework o CDK. ✅
-- Almacenamiento en DynamoDBo MySQL. ✅
+- Cacheo de resultados para evitar múltiples llamadas a las APIs dentro de un intervalo de 30 minutos. ✅
+- Despliegue en AWS usando Serverless Framework o CDK. ✅
+- Almacenamiento en DynamoDB o MySQL. ✅
 - Uso de AWS Lambday API Gateway. ✅
 
 **Puntos Bonus:**
-- Autenticación para proteger los endpoints POST y GET /historial (puede ser con JWTo AWS Cognito).. ✅
+- Autenticación para proteger los endpoints POST y GET /historial (puede ser con JWT o AWS Cognito).. ✅
 - Implementar un sistema de rate-limiting para evitar abuso de los endpoints que consumen las APIs externas (configuración en API Gateway). ✅
 - Uso de logging avanzado con AWS CloudWatch para rastrear errores y rendimiento. ✅
 
