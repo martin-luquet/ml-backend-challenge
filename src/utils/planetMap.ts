@@ -1,4 +1,7 @@
-// Mapeo de planetas ficticios a ciudades reales (con coordenadas)
+/**
+ * Mapa de coordenadas de planetas ficticios.
+ * Cada entrada contiene el nombre del planeta, la ciudad representativa,
+ */
 export const planetCoordinateMap: Record<string, { city: string, lat: number, lon: number }> = {
   'Tatooine': { city: 'Cairo, Egypt', lat: 30.0444, lon: 31.2357 },
   'Hoth': { city: 'Reykjavik, Iceland', lat: 64.1466, lon: -21.9426 },

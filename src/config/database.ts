@@ -1,9 +1,15 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
+/**
+ * Carga las variables de entorno desde un archivo .env.
+ */
 dotenv.config();
 
-// Configuración de la conexión a la base de datos MySQL
+/**
+ * Configuración de la base de datos MySQL para la aplicación.
+ * Utiliza mysql2/promise para manejar conexiones asíncronas.
+ */
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   port: +(process.env.MYSQL_PORT || 3306),
